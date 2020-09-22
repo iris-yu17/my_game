@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-        <!-- todo: check input要是4碼，要是數字 -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,11 +102,13 @@
             }
         }
 
+        // todo: check input要是4碼，要是數字
 
 
         // 按下button後判斷幾A幾B
         document.querySelector("#button").addEventListener("click", decideAB
             , false);
+
 
         let show_guess = document.querySelector("#show_guess")
         let show_result = document.querySelector("#show_result")
@@ -123,8 +123,17 @@
             // split("")轉為字串array
             player_guess = document.querySelector("#guess").value.split("")
             console.log(player_guess)
+            console.log(parseInt(player_guess[1]))
+
 
             for (i = 0; i < 4; i++) {
+
+
+                // 判斷格式是否正確
+                if (isNaN(parseInt(player_guess[i]))) {
+                    // alert("The input must be numbers")
+                    alert(i)
+                } 
 
                 // 檢查密碼是否有包含input數字
                 // parseInt把字串array轉為數字
