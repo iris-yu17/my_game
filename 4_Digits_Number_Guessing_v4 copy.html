@@ -57,7 +57,8 @@
 
         <div class="input_wrapper">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="guess" placeholder="Take a guess!">
+                <input type="text" class="form-control" id="guess" placeholder="Take a guess!" pattern="\d*"
+                    maxlength="4">
                 <div class=" input-group-append">
                     <button class="btn btn-info" type="button" id="button">Send</button>
                 </div>
@@ -109,7 +110,6 @@
         document.querySelector("#button").addEventListener("click", decideAB
             , false);
 
-
         let show_guess = document.querySelector("#show_guess")
         let show_result = document.querySelector("#show_result")
 
@@ -130,10 +130,10 @@
 
 
                 // 判斷格式是否正確
-                if (isNaN(parseInt(player_guess[i]))) {
-                    // alert("The input must be numbers")
-                    alert(i)
-                } 
+                // if (isNaN(parseInt(player_guess[i]))) {
+                //     // alert("The input must be numbers.")
+                //     alert(i)
+                // }
 
                 // 檢查密碼是否有包含input數字
                 // parseInt把字串array轉為數字
@@ -156,17 +156,52 @@
                 else {
                     // do nothing
                 }
+
             }
 
-            // 顯示幾a幾b
-            player_guess_str = document.querySelector("#guess").value
-            show_guess.innerHTML += `<div>${player_guess_str}<div>`
-            show_result.innerHTML += `<div>${a}a${b}b<div>`
+            // 若input格式錯誤就alert，且不紀錄
+            for (i = 0; i < 4; i++) {
+                if (isNaN(parseInt(player_guess[0]))) {
+                    alert("The input must be numbers.")
+                    // clear input
+                    document.querySelector("#guess").value = ""
+                    break
+                }
+                else if (isNaN(parseInt(player_guess[1]))) {
+                    alert("The input must be numbers.")
+                    // clear input
+                    document.querySelector("#guess").value = ""
+                    break
+                }
+                else if (isNaN(parseInt(player_guess[2]))) {
+                    alert("The input must be numbers.")
+                    // clear input
+                    document.querySelector("#guess").value = ""
+                    break
+                }
+                else if (isNaN(parseInt(player_guess[3]))) {
+                    alert("The input must be numbers.")
+                    // clear input
+                    document.querySelector("#guess").value = ""
+                    break
+                }
+                else {
+                    // 顯示幾a幾b
+                    player_guess_str = document.querySelector("#guess").value
+                    show_guess.innerHTML += `<div>${player_guess_str}<div>`
+                    show_result.innerHTML += `<div>${a}a${b}b<div>`
 
+                    // clear input
+                    document.querySelector("#guess").value = ""
 
-            // clear input
-            document.querySelector("#guess").value = ""
-
+                    // 若4a4b
+                    if (show_result.innerText.includes("4a0b")) {
+                        alert("BINGO!!!")
+                        // console.log(show_result.innerText.includes("4a0b"))
+                    }
+                    break
+                }
+            }
 
         }
 
